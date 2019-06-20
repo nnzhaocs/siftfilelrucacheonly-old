@@ -2,10 +2,10 @@ package storage
 
 import (
 	//	"bytes"
-	"crypto/sha256"
+	//	"crypto/sha256"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	//	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -260,79 +260,79 @@ func (bs *blobServer) ServeBlob(ctx context.Context, w http.ResponseWriter, r *h
 		return nil
 	}
 
-//	//check disk cache
-//	bytesreader, err := bs.cache.Dc.Get(dgst.String())
-//	if err != nil {
-//		context.GetLogger(ctx).Errorf("NANNAN: serveblob: bigcache error", err)
-//	}
-//
-//	if bytesreader != nil {
-//		context.GetLogger(ctx).Debug("NANNAN: slice cache hit")
-//		path, err := bs.pathFn(_desc.Digest)
-//		if err != nil {
-//			return err
-//
-//		}
-//
-//		if bs.redirect {
-//			redirectURL, err := bs.driver.URLFor(ctx, path, map[string]interface{}{"method": r.Method})
-//			switch err.(type) {
-//			case nil:
-//				// Redirect to storage URL.
-//				http.Redirect(w, r, redirectURL, http.StatusTemporaryRedirect)
-//				return err
-//
-//			case driver.ErrUnsupportedMethod:
-//				// Fallback to serving the content directly.
-//			default:
-//				// Some unexpected error.
-//				return err
-//			}
-//		}
-//
-//		storageDir := "/docker/registry/v2/diskcache"
-//		layerslicepath := storageDir + string(os.PathSeparator) + fmt.Sprintf("%x", sha256.Sum256([]byte(dgst.String()))) //(sha256.Sum256([]byte(dgst.String())))
-//		lf, err := os.Open(layerslicepath)
-//		if err != nil {
-//			context.GetLogger(ctx).Errorf("NANNAN: cannot open disk cache file %v", err)
-//			return err
-//		}
-//
-//		lfstat, err := lf.Stat()
-//		if err != nil {
-//			context.GetLogger(ctx).Errorf("NANNAN: %s", err)
-//			return nil
-//
-//		}
-//
-//		//fsize := stat.Size()
-//		size := lfstat.Size()
-//
-//		w.Header().Set("ETag", fmt.Sprintf(`"%s"`, _desc.Digest)) // If-None-Match handled by ServeContent
-//		w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%.f", blobCacheControlMaxAge.Seconds()))
-//
-//		if w.Header().Get("Docker-Content-Digest") == "" {
-//			w.Header().Set("Docker-Content-Digest", _desc.Digest.String())
-//		}
-//
-//		if w.Header().Get("Content-Type") == "" {
-//			// Set the content type if not already set.
-//			w.Header().Set("Content-Type", _desc.MediaType)
-//		}
-//
-//		if w.Header().Get("Content-Length") == "" {
-//			// Set the content length if not already set.
-//			w.Header().Set("Content-Length", fmt.Sprint(size))
-//		}
-//
-//		start = time.Now()
-//		http.ServeContent(w, r, _desc.Digest.String(), time.Time{}, lf)
-//		DurationNTT := time.Since(start).Seconds()
-//		context.GetLogger(ctx).Debugf("NANNAN: slice cache hit: metadata lookup time: %v, layer transfer time: %v, layer size: %v",
-//			DurationML, DurationNTT, size)
-//		return nil
-//
-//	}
+	//	//check disk cache
+	//	bytesreader, err := bs.cache.Dc.Get(dgst.String())
+	//	if err != nil {
+	//		context.GetLogger(ctx).Errorf("NANNAN: serveblob: bigcache error", err)
+	//	}
+	//
+	//	if bytesreader != nil {
+	//		context.GetLogger(ctx).Debug("NANNAN: slice cache hit")
+	//		path, err := bs.pathFn(_desc.Digest)
+	//		if err != nil {
+	//			return err
+	//
+	//		}
+	//
+	//		if bs.redirect {
+	//			redirectURL, err := bs.driver.URLFor(ctx, path, map[string]interface{}{"method": r.Method})
+	//			switch err.(type) {
+	//			case nil:
+	//				// Redirect to storage URL.
+	//				http.Redirect(w, r, redirectURL, http.StatusTemporaryRedirect)
+	//				return err
+	//
+	//			case driver.ErrUnsupportedMethod:
+	//				// Fallback to serving the content directly.
+	//			default:
+	//				// Some unexpected error.
+	//				return err
+	//			}
+	//		}
+	//
+	//		storageDir := "/docker/registry/v2/diskcache"
+	//		layerslicepath := storageDir + string(os.PathSeparator) + fmt.Sprintf("%x", sha256.Sum256([]byte(dgst.String()))) //(sha256.Sum256([]byte(dgst.String())))
+	//		lf, err := os.Open(layerslicepath)
+	//		if err != nil {
+	//			context.GetLogger(ctx).Errorf("NANNAN: cannot open disk cache file %v", err)
+	//			return err
+	//		}
+	//
+	//		lfstat, err := lf.Stat()
+	//		if err != nil {
+	//			context.GetLogger(ctx).Errorf("NANNAN: %s", err)
+	//			return nil
+	//
+	//		}
+	//
+	//		//fsize := stat.Size()
+	//		size := lfstat.Size()
+	//
+	//		w.Header().Set("ETag", fmt.Sprintf(`"%s"`, _desc.Digest)) // If-None-Match handled by ServeContent
+	//		w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%.f", blobCacheControlMaxAge.Seconds()))
+	//
+	//		if w.Header().Get("Docker-Content-Digest") == "" {
+	//			w.Header().Set("Docker-Content-Digest", _desc.Digest.String())
+	//		}
+	//
+	//		if w.Header().Get("Content-Type") == "" {
+	//			// Set the content type if not already set.
+	//			w.Header().Set("Content-Type", _desc.MediaType)
+	//		}
+	//
+	//		if w.Header().Get("Content-Length") == "" {
+	//			// Set the content length if not already set.
+	//			w.Header().Set("Content-Length", fmt.Sprint(size))
+	//		}
+	//
+	//		start = time.Now()
+	//		http.ServeContent(w, r, _desc.Digest.String(), time.Time{}, lf)
+	//		DurationNTT := time.Since(start).Seconds()
+	//		context.GetLogger(ctx).Debugf("NANNAN: slice cache hit: metadata lookup time: %v, layer transfer time: %v, layer size: %v",
+	//			DurationML, DurationNTT, size)
+	//		return nil
+	//
+	//	}
 
 	//else restore slice
 	context.GetLogger(ctx).Debug("NANNAN: slice cache miss")
@@ -463,12 +463,12 @@ func (bs *blobServer) ServeBlob(ctx context.Context, w http.ResponseWriter, r *h
 	//	fmt.Println("NANNAN: slice restore time: %.3f, %v\n", DurationRS, dgst)
 
 	// put into the disk cache
-//	bfss, err := ioutil.ReadAll(packFile)
-//	if err != nil {
-//		context.GetLogger(ctx).Errorf("NANNAN: %s, ", err)
-//	}
-//
-//	bs.cache.Dc.Put(dgst.String(), bfss)
+	//	bfss, err := ioutil.ReadAll(packFile)
+	//	if err != nil {
+	//		context.GetLogger(ctx).Errorf("NANNAN: %s, ", err)
+	//	}
+	//
+	//	bs.cache.Dc.Put(dgst.String(), bfss)
 
 	//delete tmp_dir and packFile here
 	if err = os.RemoveAll(path.Join("/var/lib/registry", "/docker/registry/v2/pull_tars/pull_tmp_tarfile", tmp_dir)); err != nil {
